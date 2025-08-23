@@ -199,26 +199,27 @@ jobs:
 
       
       - name: Test Python Service
-        if: hashFiles('backend/service/pyproject.toml') != ''
+        if: hashFiles('backend/service/test_*.py') != '' || hashFiles('backend/service/**/test_*.py') != '' || hashFiles('backend/service/tests/**/*.py') != ''
         working-directory: ./backend/service
         run: |
           uv sync
+          uv add --dev pytest
           uv run pytest --verbose
       
       - name: Test Go Gateway
-        if: hashFiles('backend/gateway/go.mod') != ''
+        if: hashFiles('backend/gateway/*_test.go') != '' || hashFiles('backend/gateway/**/*_test.go') != ''
         working-directory: ./backend/gateway
         run: |
           go mod download
           go test -v ./...
       
       - name: Test Rust Real-time
-        if: hashFiles('backend/real-time/Cargo.toml') != ''
+        if: hashFiles('backend/real-time/src/**/*.rs') != '' && hashFiles('backend/real-time/tests/**/*.rs') != ''
         working-directory: ./backend/real-time
         run: cargo test --verbose
       
       - name: Test Frontend
-        if: hashFiles('frontend/package.json') != ''
+        if: hashFiles('frontend/**/*.test.js') != '' || hashFiles('frontend/**/*.test.ts') != '' || hashFiles('frontend/**/*.test.jsx') != '' || hashFiles('frontend/**/*.test.tsx') != '' || hashFiles('frontend/**/*.spec.js') != '' || hashFiles('frontend/**/*.spec.ts') != ''
         working-directory: ./frontend
         run: |
           pnpm install
