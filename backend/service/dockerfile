@@ -1,0 +1,16 @@
+FROM python
+
+RUN apt update \
+&& apt-get update \
+&& apt install build-essential tar wget \
+&& pip install uv
+
+COPY . /app
+
+WORKDIR /app
+RUN uv pip install -r pyproject.toml
+
+EXPOSE 5333
+CMD ["uv", "run", "main.py"]
+
+
