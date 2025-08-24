@@ -1,0 +1,11 @@
+FROM rust
+
+RUN apt update \
+&& apt-get update \
+&& apt install build-essential tar wget \
+
+COPY . /app
+RUN cargo build 
+
+EXPOSE 5322
+CMD ["cargo", "run"]

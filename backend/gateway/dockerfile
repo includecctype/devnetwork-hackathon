@@ -1,0 +1,17 @@
+FROM golang
+
+RUN apt update \
+&& apt-get update \
+&& apt install build-essential tar wget
+
+COPY . /app
+
+WORKDIR /app
+RUN go mod init github.com/includecctype/devnetwork-hackathon \
+&& go get github.com/gin-gonic/gin 
+
+EXPOSE 5321
+CMD ["go", "run", "main.go"]
+
+
+
