@@ -1,18 +1,19 @@
-FROM node
+FROM node:20
 
-RUN apt update \
-&& apt-get update \
-&& apt install build-essential tar wget -y \
-&& npm install -g pnpm
-
-COPY . /app
+RUN apt-get update && \
+    apt-get install -y build-essential tar wget && \
+    npm install -g pnpm && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-RUN pnpm i
+COPY package*.json pnpm-lock.yaml* ./
+
+# Docker file systems cant adapt to symlinks
+RUN pnpm install --shamefully-hoist --store-dir ./node_modules/.pnpm-store
+
+COPY . .
 
 EXPOSE 5173
-CMD ["pnpm", "run", "dev"]  
-
-
+CMD ["pnpm", "run", "dev"]
 
 
