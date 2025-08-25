@@ -1,0 +1,18 @@
+FROM node
+
+RUN apt update \
+&& apt-get update \
+&& apt install build-essential tar wget -y \
+&& npm install -g pnpm
+
+COPY . /app
+
+WORKDIR /app
+RUN pnpm i
+
+EXPOSE 5173
+CMD ["pnpm", "run", "dev"]  
+
+
+
+
