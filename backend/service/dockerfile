@@ -8,8 +8,9 @@ RUN apt-get update && \
 WORKDIR /app
 COPY . .
 
-# Install dependencies directly
-RUN uv pip install django>=5.2.5 pytest>=7.0.0
+# Create virtual environment and install dependencies
+RUN uv venv && \
+    uv pip install django>=5.2.5 pytest>=7.0.0
 
 EXPOSE 5333
-CMD ["python", "main.py"]
+CMD ["uv", "run", "python", "main.py"]
