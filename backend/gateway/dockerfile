@@ -2,7 +2,7 @@ FROM golang
 
 RUN apt update \
 && apt-get update \
-&& apt install build-essential tar wget
+&& apt install build-essential tar wget -y
 
 COPY . /app
 

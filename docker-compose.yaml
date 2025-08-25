@@ -1,4 +1,37 @@
+version: "3.8"
 
-
-
+services:
+  gateway:
+    build: ./backend/gateway/
+    ports: 
+      - 5321:5321
+    env_file:
+      - ./backend/gateway/.env
+    volumes:
+      - ./backend/gateway:/api
+  real-time:
+    build: ./backend/real-time/
+    ports:
+      - 5322:5322
+    env_file:
+      - ./backend/real-time/.env
+    volumes:
+      - ./backend/real-time:/api
+  service:
+    build: ./backend/service/
+    ports:
+      - 5333:5333
+    env_file:
+      - ./backend/service/.env
+    volumes: 
+      - ./backend/service:/api
+  frontend:
+    build: ./frontend/
+    ports:
+      - 5173:5173
+    env_file:
+      - ./frontend/.env
+    volumes:
+      - ./frontend:/api
+  
 
