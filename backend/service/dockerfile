@@ -1,16 +1,18 @@
 FROM python:3.12
 
 RUN apt-get update && \
-    apt-get install -y build-essential tar wget && \
-    pip install uv && \
-    rm -rf /var/lib/apt/lists/*
+apt-get install -y build-essential tar wget && \
+pip install uv && \
+rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY . .
 
-# Create virtual environment and install dependencies
+COPY pyproject.toml ./
+
 RUN uv venv && \
-    uv pip install django>=5.2.5 pytest>=7.0.0
+    uv pip install -r pyproject.toml
+
+COPY . .
 
 EXPOSE 5333
 CMD ["uv", "run", "python", "main.py"]
