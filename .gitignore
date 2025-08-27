@@ -26,5 +26,3 @@ dist-ssr
 ## more
 .env
 .venv
-go.mod 
-go.sum
