@@ -163,6 +163,10 @@ jobs:
         working-directory: ./frontend
         run: pnpm add -D prettier
 
+      - name: Format code with Prettier
+        working-directory: ./frontend
+        run: pnpm prettier --write .
+
       - name: Check formatting with Prettier
         working-directory: ./frontend
         run: pnpm prettier --check .
