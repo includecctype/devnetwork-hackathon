@@ -122,14 +122,16 @@ jobs:
         run: |
           cargo fmt -- --check
           cargo clippy -- -D warnings
+          cargo install cargo-audit
           cargo audit
-      
+
       - name: Lint Real-time Service (Rust)
         if: hashFiles('backend/real-time/Cargo.toml') != ''
         working-directory: ./backend/real-time
         run: |
           cargo fmt -- --check
           cargo clippy -- -D warnings
+          cargo install cargo-audit
           cargo audit
 
   lint-frontend:
@@ -156,7 +158,11 @@ jobs:
       - name: Lint with ESLint
         working-directory: ./frontend
         run: pnpm eslint . --ext .js,.jsx,.ts,.tsx
-      
+
+      - name: Install Prettier
+        working-directory: ./frontend
+        run: pnpm add -D prettier
+
       - name: Check formatting with Prettier
         working-directory: ./frontend
         run: pnpm prettier --check .
