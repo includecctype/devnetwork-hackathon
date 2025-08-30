@@ -6,11 +6,11 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-socketioxide = "^0.17.0"
+socketioxide = "0.17"
 tokio = { version = "1", features = ["full"] }
+axum = "0.8"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
-axum = "^0.8.4"
-reqwest = { version = "0.12", 
+reqwest = { version = "0.12", features = ["json"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
