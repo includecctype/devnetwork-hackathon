@@ -33,5 +33,9 @@ services:
       - ./frontend/.env
     volumes:
       - ./frontend:/api
+    depends_on:
+      - gateway
+      - real-time
+      - service
   
 

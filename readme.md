@@ -5,8 +5,9 @@
 git clone this_repo  
 cd this_repo  
 sudo docker-compose build --no-cache  
+sudo docker-compose up
 
 ## End
 
 CTRL+c  
-docker-compose down  
+sudo docker-compose down  
